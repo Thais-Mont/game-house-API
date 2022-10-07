@@ -44,7 +44,7 @@ app.post('/games/new-game', async (req:any, res:any) => {
 
 //deletar jogo
 app.delete('/games/:id', async (req:any, res:any) => {
-  const { id } = req.params.id;
+  const id = req.params.id;
   const game = await prisma.game.delete({
     where: { id: id },
   });
@@ -53,7 +53,7 @@ app.delete('/games/:id', async (req:any, res:any) => {
 
 //atualizar um jogo
 
-app.put('/games/:id', async (req:any, res:any) => {
+app.post('/games/:id', async (req:any, res:any) => {
   const id = req.params.id;
   const body = req.body;
   const game = await prisma.game.update({
