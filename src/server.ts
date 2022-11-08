@@ -5,7 +5,7 @@ import {convertHourStringToMinutes} from './utils/convert-hour-string-to-minutes
 import {convertMinutesToHoursString} from './utils/convert-minutes-to-hours';
 
 const app = express();
-const port = 3333;
+const port = 3000;
 
 app.use(express.json());
 
@@ -224,18 +224,7 @@ app.get('/user/:id/favoritos', async (req:any, res:any) => {
   return res.json(profile);
 });
 
-
-
-
-
-
-
-
-
-
-
-
 //localhost:3333/ads
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
