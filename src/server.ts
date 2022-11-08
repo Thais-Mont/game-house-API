@@ -224,7 +224,7 @@ app.get('/user/:id/favoritos', async (req:any, res:any) => {
   return res.json(profile);
 });
 
-//localhost:3333/ads
+//localhost:3333/
 app.listen(process.env.PORT || port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
