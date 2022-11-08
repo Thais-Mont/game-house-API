@@ -7,36 +7,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id    String @id @default(uuid())
-//   name  String
-//   email String
-//   senha String
+model User {
+  id      String    @id @default(uuid())
+  name    String
+  email   String    @unique
+  senha   String
+  cpf     String    @unique
+  profile Profile[]
 
-//   games Game[]
-// }
-
-model Game {
-  id        String  @id @default(uuid())
-  title     String
-  bannerUrl String
-  genero    String
-  ads       Ad[]
-  // User      User?   @relation(fields: [userId], references: [id])
-  // userId    String?
+    @@map("user")
 }
 
-model Ad {
-  id               String   @id @default(uuid())
-  gameId           String
-  name             String
-  yearsPlaying     Int
-  discord          String
-  weekDays         String
-  hourStart        Int
-  hourEnd          Int
-  useVoiceChannerl Boolean
-  createdAt        DateTime @default(now())
+model Profile {
+  id        String       @id @default(uuid())
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String       
+  title     String
+  imageURL  String
+  favoritos Favourites[]
 
-  game Game @relation(fields: [gameId], references: [id])
+  @@map("profile")
+}
+
+model Game {
+  id        String       @id @default(uuid())
+  title     String       @unique
+  bannerUrl String
+  descricao String
+  videoUrl  String
+  genero    String
+  profiles  Favourites[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+   @@map("game")
+}
+
+model Favourites {
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  gameId    String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profileId String
+  createdAt DateTime @default(now())
+
+  @@id([gameId, profileId])
+  @@map("favourites")
 }
