@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const client_1 = require("@prisma/client");
 const app = (0, express_1.default)();
-const port = 3333;
+const port = 3000;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 const prisma = new client_1.PrismaClient({
@@ -204,7 +204,7 @@ app.get('/user/:id/favoritos', async (req, res) => {
     });
     return res.json(profile);
 });
-//localhost:3333/ads
-app.listen(port, () => {
+//localhost:3333/
+app.listen(process.env.PORT || port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
